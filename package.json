@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Assignment 2",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "node cli.js -n 35.92 -w 79.05 -z America/New_York"
   },
@@ -23,6 +24,5 @@
   },
   "bin": {
     "galosh.js": "./cli.js"
-  },
-  "type": "module" 
+  }
 }
