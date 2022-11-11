@@ -22,21 +22,35 @@ const longitude = (args.e) || (args.w * -1);
 const timezone = (args.z) || (moment.tz.guess());
 
 // Make a request
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + 'longitude=' + longitude + '&daily=precipitation_hours&current_weather=true&timezone=' + timezone);
-
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + '&longitude=' + longitude + '&daily=precipitation_hours&current_weather=true&timezone=' + timezone);
 // Get the data from the request
 const data = await response.json();
 
-
 // Response text
-const days = args.d 
+var days = args.d || 1
 
-if (days == 0) {
-  console.log("today.")
-} else if (days > 1) {
-  console.log("in " + days + " days.")
+if ("j" in args) {
+    console.log(data);
+    process.exit(0);
 } else {
-  console.log("tomorrow.")
+    if (data.daily.precipitation_hours[days] == 0) {
+        if (days == 0) {
+          console.log("You will not need your galoshes today.");
+        } else if (days == 1) {
+          console.log("You will not need your galoshes tomorrow.");
+        } else {
+          console.log("You will not need your galoshes in " + days + " days.");
+        }
+    } else {
+        if (days == 0) {
+          console.log("You might need your galoshes today.");
+        } else if (days == 1) {
+          console.log("You might need your galoshes tomorrow.");
+        } else {
+          console.log("You might need your galoshes in " + days + " days.");
+      }
+    }
 }
+
 
 
