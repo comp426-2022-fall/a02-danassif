@@ -17,8 +17,12 @@ if (args.h != undefined) {
     process.exit(0);
 }
 
+const latitude = (args.n) || (args.s * -1);
+const longitude = (args.e) || (args.w * -1);
+const timezone = (args.z) || (moment.tz.guess());
+
 // Make a request
-const response = await fetch('URL_GOES_HERE');
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + 'longitude=' + longitude + '&daily=precipitation_hours&current_weather=true&timezone=' + timezone);
 
 // Get the data from the request
 const data = await response.json();
@@ -34,3 +38,5 @@ if (days == 0) {
 } else {
   console.log("tomorrow.")
 }
+
+
